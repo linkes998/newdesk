@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "newsdesk"
+version = "0.4.0"
+description = "NewsDesk v0.4 · 加密/AI 新闻 → 多风格多平台文案自动化（含发布 + 审核）"
+requires-python = ">=3.10"
+dependencies = [
+    "feedparser>=6.0",
+    "customtkinter>=5.2",
+    "pyyaml>=6.0",
+    "requests>=2.31",
+]
+
+[project.optional-dependencies]
+llm = [
+    "openai>=1.0.0",
+]
+scheduler = [
+    "apscheduler>=3.10",
+]
+dev = [
+    "pytest>=8.0",
+    "pyinstaller>=6.0",
+]
+
+[project.scripts]
+newsdesk = "newsdesk.output:main"
+newsdesk-scheduler = "newsdesk.scheduler:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]

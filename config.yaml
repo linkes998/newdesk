@@ -1,0 +1,162 @@
+# NewsDesk v0.4.0 项目配置
+# 优先级：环境变量 > config.yaml > 内置默认值
+
+# ----- 新闻源 -----
+feeds:
+  - "https://www.coindesk.com/arc/outboundfeeds/rss/"
+  - "https://cointelegraph.com/rss"
+  - "https://www.theblock.co/rss.xml"
+  - "https://decrypt.co/feed"
+  - "https://openai.com/blog/rss.xml"
+  - "https://cryptonews.com/news/feed/"
+  - "https://www.coingecko.com/en/rss/news"
+  - "https://coinmarketcap.com/headlines/rss/"
+
+# ----- 关键词匹配（粗筛阶段） -----
+keywords:
+  crypto:
+    # 核心币种
+    - bitcoin
+    - btc
+    - ethereum
+    - eth
+    - solana
+    - xrp
+    - ripple
+    - zcash
+    - litecoin
+    - cardano
+    - dogecoin
+    # 核心赛道
+    - defi
+    - etf
+    - clarity
+    - crypto
+    - blockchain
+    - rwa
+    - stablecoin
+    - nft
+    - layer2
+    - "layer 2"
+    - rollup
+    - zk
+    - "zero-knowledge"
+    - memecoin
+    - mempool
+    # 监管/政策
+    - sec
+    - regulation
+    - securities
+    - "stock token"
+    - synthetic
+    - tokenized
+    # 机构/基础设施
+    - payment
+    - banking
+    - exchange
+    - robinhood
+    - coinbase
+    - kraken
+    - bitget
+    - blackrock
+  ai:
+    # 模型/公司
+    - ai
+    - openai
+    - anthropic
+    - gpt
+    - claude
+    - llm
+    - agent
+    - model
+    - deepseek
+    - qwen
+    - gemini
+    - mistral
+    # AI 应用方向
+    - cyber defense
+    - "zero-day"
+    - zero-day
+    - coding
+    - reasoning
+
+# ----- 过滤词（命中即丢弃） -----
+skip:
+  - giveaway
+  - airdrop code
+  - 保证收益
+  - 稳赚
+  - 必涨
+  - 100x
+  - moonshot
+
+# ----- 阈值 -----
+threshold:
+  score_min: 2.0              # 关键词匹配最低分
+  max_age_hours: 48            # RSS 新闻 48h 内都算新鲜（时效加权让新的排最前）
+  max_items: 8                # 最终输出条数
+  rss_timeout_seconds: 20     # RSS 请求超时
+  rss_max_entries: 25         # 每个 feed 最多取多少条
+
+# ----- 路径 -----
+paths:
+  samples: "samples"          # 三平台风格样本
+  output_dir: "output"
+  output_file: "output/three_platforms.md"
+  data_dir: "data"            # 流水线断点持久化 + 审核队列
+
+# ----- 内容生成 -----
+content:
+  language: "zh"              # zh / en / auto
+  default_style: "professional"
+  target_platforms: ["x", "telegram", "discord"]
+  user_hint: ""               # 自定义附加 prompt（例如 "我希望风格更犀利"）
+  auto_publish: False         # True = 直接发布，False = 进审核队列
+
+# ----- LLM 重排 -----
+llm_ranker:
+  enabled: true
+  weight_keywords: 0.4
+  weight_llm: 0.6
+  batch_size: 4
+
+# ----- LLM API（主模型）-----
+llm:
+  api_key: "sk-jxKLaxiVZEQ2P3G9lKOrLjAMKs6aC6yYSMyNgyYQzDNfcVSZ"
+  base_url: "https://api.agnes-ai.cn/v1"
+  model: "agnes-2.5-flash"
+
+# ----- LLM Fallback 链（可选，按顺序尝试）-----
+#llm_fallback:
+#  - api_key: "sk-another-fallback-key"
+#    base_url: "https://api.openai.com/v1"
+#    model: "gpt-4o-mini"
+#  - api_key: "sk-local"
+#    base_url: "http://localhost:11434/v1"
+#    model: "llama3"
+
+# ----- 发布平台凭证 -----
+publisher:
+  twitter:
+    bearer_token: ""          # 环境变量 TWITTER_BEARER_TOKEN
+    api_key: ""               # 环境变量 TWITTER_API_KEY
+    api_secret: ""
+    oauth_token: ""
+    oauth_secret: ""
+  telegram:
+    bot_token: ""             # 环境变量 TELEGRAM_BOT_TOKEN
+    chat_id: ""               # 环境变量 TELEGRAM_CHAT_ID
+    parse_mode: "HTML"
+  discord:
+    webhook_url: ""           # 环境变量 DISCORD_WEBHOOK_URL
+    username: "NewsDesk"
+    avatar_url: ""
+
+# ----- 缓存 -----
+cache:
+  ttl_seconds: 3600
+
+# ----- 定时调度 -----
+scheduler:
+  interval_minutes: 30
+  timezone: "UTC"

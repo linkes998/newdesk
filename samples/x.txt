@@ -1,0 +1,12 @@
+===
+date: 2026-09-04
+platform: x
+account: WatcherGuru
+type: 突发新闻
+event: CLARITY Act 执法机构转中立
+likes: 2500
+why_keep: 第一句是事实，第二句给市场含义，没有喊涨
+---
+JUST IN: 美国某执法机构对 CLARITY Act 转为中立。
+这不一定等于法案通过，但减少了一个明确阻力。
+===

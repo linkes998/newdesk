@@ -1,0 +1,52 @@
+{
+  "manifest_version": 3,
+  "name": "NewsDesk — Crypto & AI News",
+  "version": "0.4.0",
+  "description": "在浏览器中实时嗅探加密货币/AI 新闻，离线生成多平台文案，独立运行无需本地服务端。",
+  "permissions": [
+    "storage",
+    "notifications",
+    "alarms"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.coindesk.com/*",
+        "https://cointelegraph.com/news/*",
+        "https://www.theblock.co/post/*",
+        "https://decrypt.co/*",
+        "https://cryptonews.com/news/*",
+        "https://www.coingecko.com/en/news/*",
+        "https://coinmarketcap.com/*",
+        "https://openai.com/blog/*",
+        "https://x.com/*",
+        "https://twitter.com/*",
+        "https://t.me/*"
+      ],
+      "js": ["rss_fetcher.js", "scorer.js", "generate_drafts.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["inject-badge.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
