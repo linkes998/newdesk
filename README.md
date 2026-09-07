@@ -144,7 +144,7 @@ news-setup/
 
 ### 运行测试
 ```bash
-cd d:\AI-auto\news-setup
+cd AI-auto\news-setup
 python -m pytest tests/ -x -q
 # 27 passed ✅
 ```
@@ -183,8 +183,4 @@ chrome://extensions/ → 开发者模式 → 加载已解压的扩展程序
 
 ---
 
-## 📧 联系方式
 
-- GitHub Issues：提交功能建议或 bug 反馈
-- 邮箱：your-email@example.com
-- 中文文档：[STORE_LANDING.md](browser-extension/STORE_LANDING.md)（Chrome 商店发布文档）
